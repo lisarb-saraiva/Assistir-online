@@ -9,87 +9,86 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            transition: background-color 0.5s, color 0.5s;
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #333333; /* Cor de fundo cinza escuro */
+            color: #ffffff; /* Cor do texto */
         }
         nav {
             display: flex;
             justify-content: center;
-            background-color: transparent;
             padding: 10px;
-            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px; /* Espaço adicional no final da navegação */
+            border-bottom: 3px solid darkmagenta; /* Linha de separação em dark magenta */
+            position: relative; /* Para posicionar o vídeo em relação à navegação */
+            overflow: hidden; /* Para evitar que o vídeo transborde */
+        }
+        nav video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto; /* Mantém a proporção do vídeo */
+            min-height: 100%; /* Garante que cubra toda a altura */
+            object-fit: cover; /* Faz o vídeo cobrir toda a área do nav */
+            object-position: top; /* Mostra apenas a parte superior do vídeo */
+            z-index: 0; /* Coloca o vídeo atrás do texto */
+        }
+        .logo {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 3px solid white; /* Borda inferior da logo */
+            transition: border-color 0.3s; /* Transição suave da borda */
         }
         nav a {
             margin: 0 15px;
             text-decoration: none;
-            color: inherit;
-            padding: 5px;
+            color: darkmagenta; /* Cor das âncoras */
+            padding: 10px 15px; /* Aumenta o padding para mais espaço */
             position: relative;
             transition: color 0.3s;
+            z-index: 1; /* Coloca os links acima do vídeo */
+            font-weight: bold;
+            font-size: 18px; /* Aumenta o tamanho da fonte */
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para melhor contraste */
+            border-radius: 5px; /* Bordas arredondadas para o fundo */
         }
-        nav a::after {
-            content: '';
-            display: block;
-            height: 2px;
-            background: transparent;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -5px;
-            transition: background 0.3s;
+        nav a.active, .logo.active {
+            border-bottom: 3px solid darkmagenta; /* Borda inferior ativa */
         }
-        nav a:hover, nav a:focus {
-            color: #ffffff;
-        }
-        nav a:active::after {
-            background: #ffffff;
-        }
-        .toggle-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px;
-            background: transparent;
-            border: 1px solid #000;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .toggle-button img {
-            width: 24px;
-            height: 24px;
+        nav a:hover, nav a:focus, nav a:active {
+            color: lightgray; /* Cor ao passar o mouse ou focar */
         }
     </style>
 </head>
 <body>
     <nav>
-        <a href="#">Mais Assistidos</a>
-        <a href="#">Leituras</a>
-        <a href="#">Séries</a>
-        <a href="#">Filmes</a>
-        <a href="#">Animes</a>
-        <a href="#">Lançamentos</a>
+        <a class="logo" href="#">
+            <img src="./src/image/logo.png" alt="Logo" style="height: 40px;"> <!-- Ajuste a altura conforme necessário -->
+        </a>
+        <video autoplay muted loop>
+            <source src="https://motionbgs.com/media/2453/sung-jinwoo.960x540.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo.
+        </video>
+        <a href="#" class="active" onclick="setActive(this)">MAIS ASSISTIDOS</a>
+        <a href="#" onclick="setActive(this)">LEITURAS</a>
+        <a href="#" onclick="setActive(this)">SÉRIES</a>
+        <a href="#" onclick="setActive(this)">FILMES</a>
+        <a href="#" onclick="setActive(this)">ANIMES</a>
+        <a href="#" onclick="setActive(this)">LANÇAMENTOS</a>
     </nav>
 
-    <button class="toggle-button" id="toggleButton">
-        <img id="icon" src="https://img.icons8.com/ios-filled/50/000000/sunny.png" alt="Modo Claro">
-    </button>
-
     <script>
-        const toggleButton = document.getElementById('toggleButton');
-        const icon = document.getElementById('icon');
+        function setActive(element) {
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => {
+                link.classList.remove('active'); // Remove a classe de todos
+            });
+            element.classList.add('active'); // Adiciona a classe ao link clicado
 
-        toggleButton.addEventListener('click', () => {
-            if (document.body.style.backgroundColor === 'rgb(0, 0, 0)') {
-                document.body.style.backgroundColor = '#ffffff';
-                document.body.style.color = '#000000';
-                icon.src = 'https://img.icons8.com/ios-filled/50/000000/sunny.png'; // Ícone do modo claro
-            } else {
-                document.body.style.backgroundColor = '#000000';
-                document.body.style.color = '#ffffff';
-                icon.src = 'https://img.icons8.com/ios-filled/50/000000/moon-symbol.png'; // Ícone do modo noturno
-            }
-        });
+            // Para a logo
+            const logo = document.querySelector('.logo');
+            logo.classList.remove('active'); // Remove a classe da logo
+            logo.classList.add('active'); // Adiciona a classe da logo
+        }
     </script>
 </body>
 </html>
