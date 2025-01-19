@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333333; /* Cor de fundo cinza escuro */
+            color: #ffffff; /* Cor do texto */
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            margin-bottom: 20px; /* Espaço adicional no final da navegação */
+            border-bottom: 3px solid darkmagenta; /* Linha de separação em dark magenta */
+            position: relative; /* Para posicionar o vídeo em relação à navegação */
+            overflow: hidden; /* Para evitar que o vídeo transborde */
+        }
+        nav video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto; /* Mantém a proporção do vídeo */
+            min-height: 100%; /* Garante que cubra toda a altura */
+            object-fit: cover; /* Faz o vídeo cobrir toda a área do nav */
+            object-position: top; /* Mostra apenas a parte superior do vídeo */
+            z-index: 0; /* Coloca o vídeo atrás do texto */
+        }
+        .logo {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 3px solid white; /* Borda inferior da logo */
+            transition: border-color 0.3s; /* Transição suave da borda */
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: darkmagenta; /* Cor das âncoras */
+            padding: 10px 15px; /* Aumenta o padding para mais espaço */
+            position: relative;
+            transition: color 0.3s;
+            z-index: 1; /* Coloca os links acima do vídeo */
+            font-weight: bold;
+            font-size: 18px; /* Aumenta o tamanho da fonte */
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para melhor contraste */
+            border-radius: 5px; /* Bordas arredondadas para o fundo */
+        }
+        nav a.active, .logo.active {
+            border-bottom: 3px solid darkmagenta; /* Borda inferior ativa */
+        }
+        nav a:hover, nav a:focus, nav a:active {
+            color: lightgray; /* Cor ao passar o mouse ou focar */
+        }
+        .welcome-box {
+            margin: 20px auto;
+            padding: 20px; /* Espaçamento interno */
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+            border-radius: 10px; /* Bordas arredondadas */
+            width: 500px; /* Largura fixa da caixa */
+            text-align: left; /* Alinha o texto à esquerda */
+        }
+        .welcome-text {
+            font-size: 20px; /* Tamanho do texto */
+            line-height: 1.5; /* Espaçamento entre linhas */
+            text-align: justify; /* Justifica o texto */
+            padding-left: 20px; /* Espaço de 20px após a borda esquerda */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="menu.html">
+            <img src="./src/image/logo.png" alt="Logo" style="height: 40px;"> <!-- Ajuste a altura conforme necessário -->
+        </a>
+        <video autoplay muted loop>
+            <source src="https://motionbgs.com/media/2453/sung-jinwoo.960x540.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo.
+        </video>
+        <a href="#" onclick="setActive(this)">MAIS ASSISTIDOS</a>
+        <a href="#" onclick="setActive(this)">LEITURAS</a>
+        <a href="#" onclick="setActive(this)">SÉRIES</a>
+        <a href="#" onclick="setActive(this)">FILMES</a>
+        <a href="#" onclick="setActive(this)">ANIMES</a>
+        <a href="#" onclick="setActive(this)">LANÇAMENTOS</a>
+    </nav>
+
+    <div class="welcome-box">
+        <div class="welcome-text" id="welcomeText"></div>
+    </div>
+
+    <script>
+        // Função para animação de digitação
+        const text = "Olá, seja bem-vindo a minha página para assistir e ler tudo que quiser, tudo em único lugar, a AnimeOn, essa página ainda está em desenvolvimento, se puder ajudar de alguma forma, deixarei meu contato!";
+        let index = 0;
+
+        function typeText() {
+            if (index < text.length) {
+                document.getElementById("welcomeText").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeText, 50); // Atraso entre cada letra
+            }
+        }
+
+        // Inicia a animação ao carregar a página
+        window.onload = function() {
+            typeText();
+        };
+
+        function setActive(element) {
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => {
+                link.classList.remove('active'); // Remove a classe de todos
+            });
+            element.classList.add('active'); // Adiciona a classe ao link clicado
+        }
+    </script>
+</body>
+</html>
